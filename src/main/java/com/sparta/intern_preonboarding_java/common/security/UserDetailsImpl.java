@@ -22,7 +22,7 @@ public class UserDetailsImpl implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         RoleType userRole = user.getAuth();
-        String auth = userRole.getAuth();
+        String auth = userRole.getUserAuth();
 
         SimpleGrantedAuthority simpleGrantedAuthority = new SimpleGrantedAuthority(auth);
         Collection<GrantedAuthority> auths = new ArrayList<>();
