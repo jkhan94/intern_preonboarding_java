@@ -90,20 +90,6 @@ public class AuthService {
         return tokenList;
     }
 
-    @Transactional
-    public void signOut(User user) {
-
-        User curUser = findByUserName(user.getUsername());
-        curUser.updateState(UserState.WITHDRAW);
-        curUser.updateRefreshToken("");
-    }
-
-    @Transactional
-    public void logout(User user) {
-        User curUser = findByUserName(user.getUsername());
-        curUser.updateRefreshToken("");
-    }
-
     public String refreshToken(User user, String refreshToken) {
         User curUser = findByUserName(user.getUsername());
 
@@ -120,16 +106,6 @@ public class AuthService {
         return userRepository.findByUsername(username).orElseThrow(
                 () -> new BusinessException(ErrorCode.USER_NOT_FOUND)
         );
-    }
-
-    public User findById(long userId) {
-        return userRepository.findById(userId).orElseThrow(
-                () -> new BusinessException(ErrorCode.USER_NOT_FOUND)
-        );
-    }
-
-    public List<User> findAll() {
-        return userRepository.findAll();
     }
 
     public RoleType getUserRole(String username) {
