@@ -1,5 +1,8 @@
 package com.sparta.intern_preonboarding_java.domain.user.enums;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
+
 public enum RoleType {
     USER(UserType.USER),
     ADMIN(UserType.ADMIN);
@@ -10,8 +13,19 @@ public enum RoleType {
         this.userAuth = userAuth;
     }
 
-    public String getAuth() {
+    @JsonValue
+    public String getUserAuth() {
         return userAuth;
+    }
+
+    @JsonCreator
+    public static RoleType toJson(String auth) {
+        for (RoleType type : RoleType.values()) {
+            if (type.getUserAuth().equals(auth)) {
+                return type;
+            }
+        }
+        return null;
     }
 
     private static class UserType {
