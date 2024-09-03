@@ -15,10 +15,12 @@ import java.util.stream.Collectors;
 @RestControllerAdvice
 @Slf4j
 public class GlobalExceptionHandler {
+
     @ExceptionHandler(BusinessException.class)
     public ResponseEntity<?> handleBusinessException(BusinessException ex, HttpServletRequest request) {
+        ErrorResponse errorResponse = new ErrorResponse(ex.getStatus(), ex.getMessage());
         return ResponseEntity
-                .status(ex.getStatus() == HttpStatus.NO_CONTENT ? HttpStatus.OK : ex.getStatus())
+                .status(ex.getStatus())
                 .body(ex.getMessage());
     }
 
@@ -30,15 +32,17 @@ public class GlobalExceptionHandler {
                     return String.format("%s: %s", fieldError.getField(), fieldError.getDefaultMessage());
                 }).collect(Collectors.joining("\n"));
 
+        ErrorResponse errorResponse = new ErrorResponse(HttpStatus.BAD_REQUEST, errorMessage);
+
         return ResponseEntity
                 .status(HttpStatus.BAD_REQUEST)
                 .body(errorMessage);
     }
 
     @ExceptionHandler
-    public ResponseEntity<?> handleUnhandledException(Exception e, HttpServletRequest request) {
-        log.info("", e);
-
+    public ResponseEntity<?> handleUnhandledException(Exception ex, HttpServletRequest request) {
+        log.info("", ex);
+        ErrorResponse errorResponse = new ErrorResponse(HttpStatus.INTERNAL_SERVER_ERROR, ex.getMessage());
         return ResponseEntity
                 .status(HttpStatus.INTERNAL_SERVER_ERROR)
                 .body(HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase());
@@ -47,6 +51,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(AuthenticationException.class)
     public ResponseEntity<?> handleAuthenticationException(AuthenticationException ex) {
         // Custom handling logic
+        ErrorResponse errorResponse = new ErrorResponse(HttpStatus.UNAUTHORIZED, ex.getMessage());
         return ResponseEntity
                 .status(HttpStatus.UNAUTHORIZED)
                 .body(ex.getMessage());

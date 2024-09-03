@@ -90,6 +90,11 @@ ___
 
 <br>
 
+## API 명세서
+http://localhost:8080/swagger-ui/index.html
+
+<br>
+
 ## 커밋 컨벤션
 * feat : 새로운 기능 추가 (초기 세팅)
 * add : 새 파일 추가
