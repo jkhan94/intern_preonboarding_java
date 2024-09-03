@@ -13,6 +13,7 @@ import java.util.Collection;
 
 @Getter
 public class UserDetailsImpl implements UserDetails {
+
     private final User user;
 
     public UserDetailsImpl(User user) {

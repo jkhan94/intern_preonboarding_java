@@ -50,6 +50,15 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.POST, "/api/auth/signup").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/auth/sign").permitAll()
 
+                        // Swagger 관련 경로에 대해 permitAll() 추가
+                        .requestMatchers(
+                                "/v3/api-docs/**",       // OpenAPI 문서 경로
+                                "/swagger-ui/**",        // Swagger UI 리소스 경로
+                                "/swagger-ui.html",      // Swagger UI HTML 경로
+                                "/swagger-resources/**", // Swagger 리소스 경로 (필요한 경우)
+                                "/webjars/**"            // 웹자르 리소스 경로 (필요한 경우)
+                        ).permitAll()
+
                         .anyRequest().authenticated()
         );
 
