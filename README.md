@@ -92,7 +92,6 @@ ___
 
 ## API 명세서
 http://localhost:8080/swagger-ui/index.html
-http://54.180.136.107:8080/swagger-ui/index.html
 
 <br>
 
