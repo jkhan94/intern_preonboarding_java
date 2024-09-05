@@ -57,7 +57,7 @@
         
         ```json
         {
-        	"token": "eKDIkdfjoakIdkfjpekdkcjdkoIOdjOKJDFOlLDKFJKL",
+        	"token": "eKDIkdfjoakIdkfjpekdkcjdkoIOdjOKJDFOlLDKFJKL"
         }
         ```
 <br>
